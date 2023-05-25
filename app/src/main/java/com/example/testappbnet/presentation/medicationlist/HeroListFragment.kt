@@ -1,14 +1,15 @@
-package com.example.testappbnet.screens.medicationlist
+package com.example.testappbnet.presentation.medicationlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testappbnet.R
-import com.example.testappbnet.models.Hero
+import com.example.testappbnet.domain.Hero
 
 class HeroListFragment : Fragment() {
 
@@ -19,21 +20,29 @@ class HeroListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_medication_list, container, false)
-
+        val view = inflater.inflate(R.layout.fragment_hero_list, container, false)
         recyclerView = view.findViewById(R.id.rvMedications)
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.result.observe(viewLifecycleOwner) {
-            setAdapter(it)
-        }
+        observeViewModel()
         viewModel.refreshListOfHeroes()
     }
 
-    private fun setAdapter(listDrugs: List<Hero>) {
-        recyclerView.adapter = HeroesAdapter(listDrugs)
+    private fun observeViewModel() {
+        viewModel.result.observe(viewLifecycleOwner) {
+            setAdapter(it)
+        }
+        viewModel.error.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setAdapter(listOfHeroes: List<Hero>) {
+        val adapter = HeroesAdapter(listOfHeroes)
+        adapter.submitList(listOfHeroes)
+        recyclerView.adapter = adapter
     }
 }

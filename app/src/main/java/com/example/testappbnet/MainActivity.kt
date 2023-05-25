@@ -7,22 +7,37 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.testappbnet.data.repository.Repository
-import com.example.testappbnet.screens.medicationlist.HeroListViewModel
+import com.example.testappbnet.data.repository.RepositoryImpl
+import com.example.testappbnet.presentation.cardproduct.CardHeroViewModel
+import com.example.testappbnet.presentation.medicationlist.HeroListViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private val repository = Repository()
-    private lateinit var medicationListViewModel: HeroListViewModel
+    private val repository = RepositoryImpl()
+    private lateinit var heroesListViewModel: HeroListViewModel
+    private lateinit var cardHeroViewModel: CardHeroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        medicationListViewModel = ViewModelProvider(this,
+        initViewModels()
+        initNavigation()
+    }
+
+    private fun initViewModels() {
+        heroesListViewModel = ViewModelProvider(
+            this,
             HeroListViewModel.MedicationListVMFactory(repository)
         )[HeroListViewModel::class.java]
 
+        cardHeroViewModel = ViewModelProvider(
+            this,
+            CardHeroViewModel.CardHeroVMFactory(repository)
+        )[CardHeroViewModel::class.java]
+    }
+
+    private fun initNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController

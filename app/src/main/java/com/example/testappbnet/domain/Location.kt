@@ -1,4 +1,4 @@
-package com.example.testappbnet.models
+package com.example.testappbnet.domain
 
 data class Location(
     val name: String,

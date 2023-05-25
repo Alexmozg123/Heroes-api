@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.cardproduct.CardHeroFragment">
+    tools:context=".presentation.cardproduct.CardHeroFragment">
 
     <ImageView
         android:id="@+id/ivProduct"
@@ -22,19 +22,21 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-        app:layout_constraintEnd_toStartOf="@+id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFullName"
+        app:layout_constraintEnd_toStartOf="@+id/tvFullName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvTitle"
+        app:layout_constraintTop_toTopOf="@+id/tvFullName"
         app:layout_constraintVertical_bias="1.0"
         tools:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvFullName"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_margin="16dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="236dp"
         android:lineSpacingExtra="8dp"
         android:text="Full Name"
         android:textColor="@color/black"
@@ -44,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
 
     <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvStatus"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -55,7 +57,7 @@
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFullName" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/medicationListFragment"
-        android:name="com.example.testappbnet.screens.medicationlist.HeroListFragment"
+        android:name="com.example.testappbnet.presentation.medicationlist.HeroListFragment"
         android:label="fragment_medication_list"
-        tools:layout="@layout/fragment_medication_list" >
+        tools:layout="@layout/fragment_hero_list" >
         <action
             android:id="@+id/action_medicationListFragment_to_cardProductFragment"
             app:destination="@id/cardProductFragment" />
@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/cardProductFragment"
-        android:name="com.example.testappbnet.screens.cardproduct.CardHeroFragment"
+        android:name="com.example.testappbnet.presentation.cardproduct.CardHeroFragment"
         android:label="fragment_card_product"
-        tools:layout="@layout/fragment_card_product" >
+        tools:layout="@layout/fragment_card_hero" >
         <action
             android:id="@+id/action_cardProductFragment_to_medicationListFragment"
             app:destination="@id/medicationListFragment" />
