@@ -35,16 +35,20 @@ class CardHeroFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            fullName.text = heroArgs.heroObj.name
-            status.text = heroArgs.heroObj.status
-            Picasso.get().load(heroArgs.heroObj.image).into(image)
-            when (heroArgs.heroObj.gender) {
-                getString(R.string.male) ->
-                    genderIcon.setImageResource(R.drawable.baseline_male_24)
-                getString(R.string.female) ->
-                    genderIcon.setImageResource(R.drawable.baseline_female_24)
-                else ->
-                    genderIcon.setImageResource(R.drawable.ic_baseline_star_outline_24)
-            }
+        fillHeroCard()
+    }
+
+    private fun fillHeroCard() {
+        fullName.text = heroArgs.heroObj.name
+        status.text = heroArgs.heroObj.status
+        Picasso.get().load(heroArgs.heroObj.image).into(image)
+        when (heroArgs.heroObj.gender) {
+            getString(R.string.male) ->
+                genderIcon.setImageResource(R.drawable.baseline_male_24)
+            getString(R.string.female) ->
+                genderIcon.setImageResource(R.drawable.baseline_female_24)
+            else ->
+                genderIcon.setImageResource(R.drawable.baseline_question_mark_24)
+        }
     }
 }

@@ -8,14 +8,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.testappbnet.data.repository.RepositoryImpl
-import com.example.testappbnet.presentation.cardproduct.CardHeroViewModel
 import com.example.testappbnet.presentation.medicationlist.HeroListViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private val repository = RepositoryImpl()
     private lateinit var heroesListViewModel: HeroListViewModel
-    private lateinit var cardHeroViewModel: CardHeroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +28,6 @@ class MainActivity : AppCompatActivity() {
             this,
             HeroListViewModel.MedicationListVMFactory(repository)
         )[HeroListViewModel::class.java]
-
-        cardHeroViewModel = ViewModelProvider(
-            this,
-            CardHeroViewModel.CardHeroVMFactory(repository)
-        )[CardHeroViewModel::class.java]
     }
 
     private fun initNavigation() {
