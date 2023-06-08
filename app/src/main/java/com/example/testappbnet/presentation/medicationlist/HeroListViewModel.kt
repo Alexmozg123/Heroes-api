@@ -13,22 +13,14 @@ class HeroListViewModel(
 
     private lateinit var state: Parcelable
 
-    private val _error = MutableLiveData<String>()
-    val error: LiveData<String>
-        get() = _error
-
     private val _result = MutableLiveData<List<Hero>>()
     val result: LiveData<List<Hero>>
         get() = _result
 
     fun refreshListOfHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val resultList = repository.getHeroesList()
-                _result.postValue(resultList.heroesList)
-            } catch (e: Throwable) {
-                _error.postValue(e.message)
-            }
+            val resultList = repository.getHeroesList()
+            _result.postValue(resultList.heroesList)
         }
     }
 
