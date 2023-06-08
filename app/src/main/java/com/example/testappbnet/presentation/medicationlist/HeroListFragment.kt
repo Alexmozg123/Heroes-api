@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testappbnet.R
-import com.example.testappbnet.domain.Hero
+import com.example.testappbnet.domain.models.Hero
 
 class HeroListFragment : Fragment() {
 
@@ -31,9 +32,17 @@ class HeroListFragment : Fragment() {
         viewModel.refreshListOfHeroes()
     }
 
+    override fun onPause() {
+        super.onPause()
+        recyclerView.layoutManager?.onSaveInstanceState()?.let {
+            viewModel.saveRecyclerViewState(it)
+        }
+    }
+
     private fun observeViewModel() {
         viewModel.result.observe(viewLifecycleOwner) {
             setAdapter(it)
+            setRecyclerViewState()
         }
         viewModel.error.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -41,8 +50,24 @@ class HeroListFragment : Fragment() {
     }
 
     private fun setAdapter(listOfHeroes: List<Hero>) {
-        val adapter = HeroesAdapter(listOfHeroes)
+        val adapter = HeroesAdapter(listOfHeroes) { hero->
+            navigateToCardHeroFragment(hero)
+        }
         adapter.submitList(listOfHeroes)
         recyclerView.adapter = adapter
+    }
+
+    private fun setRecyclerViewState() {
+        if (viewModel.stateInitialized()) {
+            recyclerView.layoutManager?.onRestoreInstanceState(
+                viewModel.restoreRecyclerViewState()
+            )
+        }
+    }
+
+    private fun navigateToCardHeroFragment(hero: Hero) {
+        val action = HeroListFragmentDirections
+            .actionMedicationListFragmentToCardProductFragment(hero)
+        requireView().findNavController().navigate(action)
     }
 }

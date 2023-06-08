@@ -1,29 +1,50 @@
 package com.example.testappbnet.presentation.cardproduct
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.testappbnet.R
+import com.squareup.picasso.Picasso
 
 class CardHeroFragment : Fragment() {
 
-    private val image: ImageView = requireView().findViewById(R.id.ivProduct)
-    private val genderIcon: ImageView = requireView().findViewById(R.id.ivGenderIcon)
-    private val fullName: TextView = requireView().findViewById(R.id.tvFullName)
-    private val status: TextView = requireView().findViewById(R.id.tvStatus)
+    private lateinit var image: ImageView
+    private lateinit var genderIcon: ImageView
+    private lateinit var fullName: TextView
+    private lateinit var status: TextView
 
-    private val viewModel: CardHeroViewModel by viewModels()
+    private val heroArgs: CardHeroFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_card_hero, container, false)
+        image = view.findViewById(R.id.ivHero)
+        genderIcon = view.findViewById(R.id.ivGenderIcon)
+        fullName = view.findViewById(R.id.tvFullName)
+        status = view.findViewById(R.id.tvStatus)
 
-        return inflater.inflate(R.layout.fragment_card_hero, container, false)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            fullName.text = heroArgs.heroObj.name
+            status.text = heroArgs.heroObj.status
+            Picasso.get().load(heroArgs.heroObj.image).into(image)
+            when (heroArgs.heroObj.gender) {
+                getString(R.string.male) ->
+                    genderIcon.setImageResource(R.drawable.baseline_male_24)
+                getString(R.string.female) ->
+                    genderIcon.setImageResource(R.drawable.baseline_female_24)
+                else ->
+                    genderIcon.setImageResource(R.drawable.ic_baseline_star_outline_24)
+            }
     }
 }

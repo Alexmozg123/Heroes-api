@@ -7,43 +7,44 @@
     tools:context=".presentation.cardproduct.CardHeroFragment">
 
     <ImageView
-        android:id="@+id/ivProduct"
-        android:layout_width="0dp"
-        android:layout_height="240dp"
-        android:layout_margin="16dp"
+        android:id="@+id/ivHero"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivGenderIcon"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvFullName"
-        app:layout_constraintEnd_toStartOf="@+id/tvFullName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvFullName"
-        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/tvFullName"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="236dp"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:lineSpacingExtra="8dp"
-        android:text="Full Name"
+        android:maxLines="3"
+        android:text="@string/full_name"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivProduct" />
+        app:layout_constraintEnd_toStartOf="@+id/ivGenderIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <TextView
         android:id="@+id/tvStatus"
@@ -51,19 +52,12 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Alive"
+        android:text="@string/alive"
         android:textColor="@color/gray"
         android:textSize="20sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFullName" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

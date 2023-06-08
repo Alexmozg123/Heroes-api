@@ -3,25 +3,28 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graf"
-    app:startDestination="@id/medicationListFragment">
+    app:startDestination="@id/heroesListFragment">
 
     <fragment
-        android:id="@+id/medicationListFragment"
+        android:id="@+id/heroesListFragment"
         android:name="com.example.testappbnet.presentation.medicationlist.HeroListFragment"
         android:label="fragment_medication_list"
         tools:layout="@layout/fragment_hero_list" >
         <action
             android:id="@+id/action_medicationListFragment_to_cardProductFragment"
-            app:destination="@id/cardProductFragment" />
+            app:destination="@id/cardHeroFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/cardProductFragment"
+        android:id="@+id/cardHeroFragment"
         android:name="com.example.testappbnet.presentation.cardproduct.CardHeroFragment"
         android:label="fragment_card_product"
         tools:layout="@layout/fragment_card_hero" >
         <action
             android:id="@+id/action_cardProductFragment_to_medicationListFragment"
-            app:destination="@id/medicationListFragment" />
+            app:destination="@id/heroesListFragment" />
+        <argument
+            android:name="heroObj"
+            app:argType="com.example.testappbnet.domain.models.Hero" />
     </fragment>
 </navigation>

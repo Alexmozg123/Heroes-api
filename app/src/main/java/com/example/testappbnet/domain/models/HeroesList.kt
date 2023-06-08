@@ -1,4 +1,4 @@
-package com.example.testappbnet.domain
+package com.example.testappbnet.domain.models
 
 import com.squareup.moshi.Json
 

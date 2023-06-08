@@ -1,4 +1,4 @@
-package com.example.testappbnet.domain
+package com.example.testappbnet.domain.models
 
 data class Info(
     val count: Int = 0,
