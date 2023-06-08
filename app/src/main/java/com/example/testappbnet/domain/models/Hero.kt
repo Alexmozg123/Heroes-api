@@ -1,4 +1,6 @@
-package com.example.testappbnet.domain
+package com.example.testappbnet.domain.models
+
+import java.io.Serializable
 
 data class Hero(
     val created: String,
@@ -13,4 +15,4 @@ data class Hero(
     val status: String,
     val type: String,
     val url: String
-)
+) : Serializable

@@ -1,15 +1,17 @@
 package com.example.testappbnet.presentation.medicationlist
 
-import android.util.Log
+import android.os.Parcelable
 import androidx.lifecycle.*
-import com.example.testappbnet.domain.Hero
 import com.example.testappbnet.domain.Repository
+import com.example.testappbnet.domain.models.Hero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HeroListViewModel(
-    private val repository: Repository
+    private val repository: Repository,
 ) : ViewModel() {
+
+    private lateinit var state: Parcelable
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
@@ -21,22 +23,24 @@ class HeroListViewModel(
 
     fun refreshListOfHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val tag = "HeroesList"
-            Log.d(tag,"Вызван лаунчер")
             try {
                 val resultList = repository.getHeroesList()
-                Log.d(tag, resultList.toString())
                 _result.postValue(resultList.heroesList)
             } catch (e: Throwable) {
                 _error.postValue(e.message)
-                Log.e(tag, e.stackTraceToString())
             }
         }
     }
 
+    fun saveRecyclerViewState(parcelable: Parcelable) { state = parcelable }
+
+    fun restoreRecyclerViewState() : Parcelable = state
+
+    fun stateInitialized() : Boolean = ::state.isInitialized
+
     @Suppress("UNCHECKED_CAST")
     class MedicationListVMFactory(
-        private val repository: Repository
+        private val repository: Repository,
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
             HeroListViewModel(repository) as T

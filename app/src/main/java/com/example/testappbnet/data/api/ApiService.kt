@@ -1,7 +1,7 @@
 package com.example.testappbnet.data.api
 
-import com.example.testappbnet.domain.Hero
-import com.example.testappbnet.domain.HeroesList
+import com.example.testappbnet.domain.models.Hero
+import com.example.testappbnet.domain.models.HeroesList
 import retrofit2.http.GET
 import retrofit2.http.Path
 

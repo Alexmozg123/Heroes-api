@@ -1,8 +1,8 @@
 package com.example.testappbnet.presentation.cardproduct
 
 import androidx.lifecycle.*
-import com.example.testappbnet.domain.Hero
 import com.example.testappbnet.domain.Repository
+import com.example.testappbnet.domain.models.Hero
 import kotlinx.coroutines.launch
 
 class CardHeroViewModel(
