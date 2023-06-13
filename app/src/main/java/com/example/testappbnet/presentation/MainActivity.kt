@@ -1,33 +1,21 @@
-package com.example.testappbnet
+package com.example.testappbnet.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.testappbnet.data.repository.RepositoryImpl
-import com.example.testappbnet.presentation.medicationlist.HeroListViewModel
+import com.example.testappbnet.R
 
 class MainActivity : AppCompatActivity() {
-
-    private val repository = RepositoryImpl()
-    private lateinit var heroesListViewModel: HeroListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.tbMain))
 
-        initViewModels()
         initNavigation()
-    }
-
-    private fun initViewModels() {
-        heroesListViewModel = ViewModelProvider(
-            this,
-            HeroListViewModel.MedicationListVMFactory(repository)
-        )[HeroListViewModel::class.java]
     }
 
     private fun initNavigation() {
