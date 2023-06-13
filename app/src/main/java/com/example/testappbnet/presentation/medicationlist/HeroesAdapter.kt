@@ -14,7 +14,6 @@ import com.example.testappbnet.presentation.medicationlist.HeroesAdapter.*
 import com.squareup.picasso.Picasso
 
 class HeroesAdapter(
-    private val items: List<Hero>,
     private val listenerHero: (hero: Hero) -> Unit,
 ) : ListAdapter<Hero, HeroesViewHolder>(HeroesComparator()) {
 
@@ -29,9 +28,9 @@ class HeroesAdapter(
     }
 
     override fun onBindViewHolder(holder: HeroesViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            listenerHero(items[position])
+            listenerHero(getItem(position))
         }
     }
 

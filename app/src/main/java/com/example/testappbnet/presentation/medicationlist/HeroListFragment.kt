@@ -1,20 +1,27 @@
 package com.example.testappbnet.presentation.medicationlist
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testappbnet.R
+import com.example.testappbnet.data.repository.RepositoryImpl
 import com.example.testappbnet.domain.models.Hero
 
 class HeroListFragment : Fragment() {
 
+    private val repository = RepositoryImpl()
+
+    private lateinit var searchView: SearchView
     private lateinit var recyclerView: RecyclerView
-    private val viewModel: HeroListViewModel by activityViewModels()
+    private val adapter = HeroesAdapter { hero -> navigateToCardHeroFragment(hero) }
+
+    private val viewModel: HeroListViewModel by viewModels{
+        HeroListViewModel.HeroesListVMFactory(repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,42 +29,28 @@ class HeroListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_hero_list, container, false)
         recyclerView = view.findViewById(R.id.rvMedications)
+        searchView = view.findViewById(R.id.searchView)
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(createSearchListener())
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeViewModel()
+        recyclerView.adapter = adapter
+
+        viewModel.result.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
         viewModel.refreshListOfHeroes()
     }
 
-    override fun onPause() {
-        super.onPause()
-        recyclerView.layoutManager?.onSaveInstanceState()?.let {
-            viewModel.saveRecyclerViewState(it)
-        }
-    }
+    private fun createSearchListener() = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String): Boolean = false
 
-    private fun observeViewModel() {
-        viewModel.result.observe(viewLifecycleOwner) {
-            setAdapter(it)
-            setRecyclerViewState()
-        }
-    }
-
-    private fun setAdapter(listOfHeroes: List<Hero>) {
-        val adapter = HeroesAdapter(listOfHeroes) { hero->
-            navigateToCardHeroFragment(hero)
-        }
-        adapter.submitList(listOfHeroes)
-        recyclerView.adapter = adapter
-    }
-
-    private fun setRecyclerViewState() {
-        if (viewModel.stateInitialized()) {
-            recyclerView.layoutManager?.onRestoreInstanceState(
-                viewModel.restoreRecyclerViewState()
-            )
+        override fun onQueryTextChange(newText: String): Boolean {
+            viewModel.onTextChanged(newText)
+            return true
         }
     }
 
