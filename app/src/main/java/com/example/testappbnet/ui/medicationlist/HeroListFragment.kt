@@ -1,26 +1,30 @@
-package com.example.testappbnet.presentation.medicationlist
+package com.example.testappbnet.ui.medicationlist
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testappbnet.R
+import com.example.testappbnet.data.api.RetrofitInstance
 import com.example.testappbnet.data.repository.RepositoryImpl
+import com.example.testappbnet.domain.HeroInteractor
 import com.example.testappbnet.domain.models.Hero
 
 class HeroListFragment : Fragment() {
-
-    private val repository = RepositoryImpl()
 
     private lateinit var searchView: SearchView
     private lateinit var recyclerView: RecyclerView
     private val adapter = HeroesAdapter { hero -> navigateToCardHeroFragment(hero) }
 
     private val viewModel: HeroListViewModel by viewModels{
-        HeroListViewModel.HeroesListVMFactory(repository)
+        HeroListViewModel.HeroesListVMFactory(
+            HeroInteractor(RepositoryImpl(RetrofitInstance.api))
+        )
     }
 
     override fun onCreateView(

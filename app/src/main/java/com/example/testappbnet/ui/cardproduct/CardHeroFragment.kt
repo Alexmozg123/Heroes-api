@@ -1,4 +1,4 @@
-package com.example.testappbnet.presentation.cardproduct
+package com.example.testappbnet.ui.cardproduct
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,10 +39,10 @@ class CardHeroFragment : Fragment() {
     }
 
     private fun fillHeroCard() {
-        fullName.text = heroArgs.heroObj.name
-        status.text = heroArgs.heroObj.status
-        Picasso.get().load(heroArgs.heroObj.image).into(image)
-        when (heroArgs.heroObj.gender) {
+        fullName.text = heroArgs.hero.name
+        status.text = heroArgs.hero.status
+        Picasso.get().load(heroArgs.hero.image).into(image)
+        when (heroArgs.hero.gender) {
             getString(R.string.male) ->
                 genderIcon.setImageResource(R.drawable.baseline_male_24)
             getString(R.string.female) ->

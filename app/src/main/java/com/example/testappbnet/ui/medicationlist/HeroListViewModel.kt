@@ -1,13 +1,13 @@
-package com.example.testappbnet.presentation.medicationlist
+package com.example.testappbnet.ui.medicationlist
 
 import androidx.lifecycle.*
-import com.example.testappbnet.domain.Repository
+import com.example.testappbnet.domain.HeroInteractor
 import com.example.testappbnet.domain.models.Hero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HeroListViewModel(
-    private val repository: Repository,
+    private val heroInteractor: HeroInteractor,
 ) : ViewModel() {
 
     private var heroes = mutableListOf<Hero>()
@@ -17,9 +17,9 @@ class HeroListViewModel(
 
     fun refreshListOfHeroes() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getHeroesList().also {
+            heroInteractor.getHeroesList().also {
                 heroes.clear()
-                heroes.addAll(it.heroesList)
+                heroes.addAll(it)
             }
             _result.postValue(heroes)
         }
@@ -37,9 +37,9 @@ class HeroListViewModel(
 
     @Suppress("UNCHECKED_CAST")
     class HeroesListVMFactory(
-        private val repository: Repository,
+        private val heroInteractor: HeroInteractor,
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            HeroListViewModel(repository) as T
+            HeroListViewModel(heroInteractor) as T
     }
 }

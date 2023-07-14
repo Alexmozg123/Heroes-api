@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/heroesListFragment"
-        android:name="com.example.testappbnet.presentation.medicationlist.HeroListFragment"
+        android:name="com.example.testappbnet.ui.medicationlist.HeroListFragment"
         android:label="fragment_medication_list"
         tools:layout="@layout/fragment_hero_list" >
         <action
@@ -17,14 +17,11 @@
 
     <fragment
         android:id="@+id/cardHeroFragment"
-        android:name="com.example.testappbnet.presentation.cardproduct.CardHeroFragment"
+        android:name="com.example.testappbnet.ui.cardproduct.CardHeroFragment"
         android:label="fragment_card_product"
         tools:layout="@layout/fragment_card_hero" >
-        <action
-            android:id="@+id/action_cardProductFragment_to_medicationListFragment"
-            app:destination="@id/heroesListFragment" />
         <argument
-            android:name="heroObj"
+            android:name="hero"
             app:argType="com.example.testappbnet.domain.models.Hero" />
     </fragment>
 </navigation>
