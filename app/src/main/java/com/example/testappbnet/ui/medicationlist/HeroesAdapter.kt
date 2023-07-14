@@ -1,4 +1,4 @@
-package com.example.testappbnet.presentation.medicationlist
+package com.example.testappbnet.ui.medicationlist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testappbnet.R
 import com.example.testappbnet.domain.models.Hero
-import com.example.testappbnet.presentation.medicationlist.HeroesAdapter.*
+import com.example.testappbnet.ui.medicationlist.HeroesAdapter.HeroesViewHolder
 import com.squareup.picasso.Picasso
 
 class HeroesAdapter(
@@ -45,6 +45,7 @@ class HeroesAdapter(
         override fun areItemsTheSame(oldItem: Hero, newItem: Hero): Boolean {
             return oldItem.id == newItem.id
         }
+
         override fun areContentsTheSame(oldItem: Hero, newItem: Hero): Boolean {
             return oldItem == newItem
         }

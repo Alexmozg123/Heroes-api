@@ -1,6 +1,6 @@
-package com.example.testappbnet.domain.models
+package com.example.testappbnet.data.repository.models
 
-data class Info(
+data class InfoBin(
     val count: Int = 0,
     val next: String? = null,
     val pages: Int = 0,
