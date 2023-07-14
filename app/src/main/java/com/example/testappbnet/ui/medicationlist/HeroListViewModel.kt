@@ -5,8 +5,9 @@ import com.example.testappbnet.domain.HeroInteractor
 import com.example.testappbnet.domain.models.Hero
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HeroListViewModel(
+class HeroListViewModel @Inject constructor(
     private val heroInteractor: HeroInteractor,
 ) : ViewModel() {
 
@@ -36,7 +37,7 @@ class HeroListViewModel(
     }
 
     @Suppress("UNCHECKED_CAST")
-    class HeroesListVMFactory(
+    class HeroesListVMFactory @Inject constructor(
         private val heroInteractor: HeroInteractor,
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
