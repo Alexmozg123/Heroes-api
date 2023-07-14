@@ -5,8 +5,11 @@ import com.example.testappbnet.domain.Repository
 import com.example.testappbnet.domain.models.Hero
 import com.example.testappbnet.domain.models.Location
 import com.example.testappbnet.domain.models.Origin
+import javax.inject.Inject
 
-class RepositoryImpl(private val apiService: ApiService) : Repository {
+class RepositoryImpl @Inject constructor(
+        private val apiService: ApiService
+    ) : Repository {
     override suspend fun getHeroesList(): List<Hero> =
         apiService.getListHeroes().heroesList
             .map { item ->
